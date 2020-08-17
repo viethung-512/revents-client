@@ -26,7 +26,7 @@ const render = () => {
 };
 
 if (module.hot) {
-  module.hot.accept('./app/layout/App', () => {
+  module.hot.accept('./ApolloProvider', () => {
     setTimeout(render);
   });
 }
