@@ -8,7 +8,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useModal from 'hooks/useModal';
 
 export default function Test() {
-  const { status, closeModal } = useModal();
+  const { getModalStatus, closeModal } = useModal();
+
+  const status = getModalStatus('TestModal');
 
   return (
     <Dialog open={status} onClose={closeModal}>

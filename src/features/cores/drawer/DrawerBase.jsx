@@ -14,9 +14,11 @@ const useStyles = makeStyles(theme => ({
 
 function DrawerBase({ children, ...rest }) {
   const classes = useStyles();
-  const { status, closeDrawer } = useDrawer();
+  const { getDrawerStatus, closeDrawer } = useDrawer();
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  const status = getDrawerStatus('TestDrawer');
 
   return (
     <SwipeableDrawer

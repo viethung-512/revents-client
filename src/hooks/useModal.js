@@ -6,17 +6,19 @@ import {
 
 const useModal = () => {
   const dispatch = useDispatch();
-  const { open: status } = useSelector(state => state.modal);
+  const { open: status, modalType } = useSelector(state => state.modal);
 
   const openModal = (modalType, modalProps) =>
     dispatch(open({ modalType, modalProps }));
 
   const closeModal = () => dispatch(close());
 
+  const getModalStatus = type => (type === modalType ? status : false);
+
   return {
     openModal,
     closeModal,
-    status,
+    getModalStatus,
   };
 };
 
