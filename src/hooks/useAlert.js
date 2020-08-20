@@ -5,15 +5,15 @@ import {
   warning,
   info,
   clear,
-} from 'features/cores/alert/alertSlice';
+} from 'app/cores/alert/alertSlice';
 
 const useAlert = () => {
   const dispatch = useDispatch();
 
-  const alertSuccess = message => dispatch(success({ message }));
-  const alertError = message => dispatch(error({ message }));
-  const alertWarning = message => dispatch(warning({ message }));
-  const alertInfo = message => dispatch(info({ message }));
+  const alertSuccess = message => dispatch(success(message));
+  const alertError = message => dispatch(error(message));
+  const alertWarning = message => dispatch(warning(message));
+  const alertInfo = message => dispatch(info(message));
   const alertClear = () => dispatch(clear());
 
   return {

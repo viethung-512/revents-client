@@ -1,8 +1,10 @@
 import React from 'react';
-import ApolloClient from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { createHttpLink } from 'apollo-link-http';
-import { ApolloProvider } from '@apollo/react-hooks';
+import {
+  ApolloClient,
+  ApolloProvider as Provider,
+  InMemoryCache,
+  createHttpLink,
+} from '@apollo/client';
 
 import App from 'app/layout/App';
 
@@ -15,12 +17,10 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-function MyApolloProvider(props) {
+export default function MyApolloProvider(props) {
   return (
-    <ApolloProvider client={client}>
+    <Provider client={client}>
       <App />
-    </ApolloProvider>
+    </Provider>
   );
 }
-
-export default MyApolloProvider;

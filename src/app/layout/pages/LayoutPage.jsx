@@ -4,11 +4,17 @@ import Header from './header/Header';
 import Footer from './footer/Footer';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    padding: theme.spacing(2),
+  root: {
     backgroundColor: theme.palette.background.default,
+  },
+  container: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    minHeight: '150vh',
+    height: '100%',
   },
   cloneToolbar: {
     ...theme.mixins.toolbar,
@@ -19,10 +25,10 @@ function LayoutPage({ children }) {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.root}>
       <Header />
       <div className={classes.cloneToolbar} />
-      <div className={classes.container}>{children}</div>
+      <Container className={classes.container}>{children}</Container>
       <Footer />
     </div>
   );

@@ -12,13 +12,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function DrawerBase({ children, ...rest }) {
+function DrawerBase({ children, drawerType, ...rest }) {
   const classes = useStyles();
   const { getDrawerStatus, closeDrawer } = useDrawer();
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-  const status = getDrawerStatus('TestDrawer');
+  const status = getDrawerStatus(drawerType);
 
   return (
     <SwipeableDrawer
@@ -39,6 +39,7 @@ function DrawerBase({ children, ...rest }) {
 
 DrawerBase.propTypes = {
   children: PropTypes.node.isRequired,
+  drawerType: PropTypes.string.isRequired,
 };
 
 export default DrawerBase;

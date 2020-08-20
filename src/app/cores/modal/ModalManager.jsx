@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TestModal from './test-modal/Test';
+import TestModal from 'features/playground/TestModal';
 
 function ModalManager(props) {
   return (

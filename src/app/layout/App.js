@@ -2,13 +2,13 @@ import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 
-import AlertManager from 'features/cores/alert/AlertManager';
-import DrawerManager from 'features/cores/drawer/DrawerManager';
-import ModalManager from 'features/cores/modal/ModalManager';
-import Header from './header/Header';
+import AlertManager from 'app/cores/alert/AlertManager';
+import DrawerManager from 'app/cores/drawer/DrawerManager';
+import ModalManager from 'app/cores/modal/ModalManager';
 
-import HomePage from 'features/pages/HomePage';
-import NotFoundPage from 'features/pages/NotFoundPage';
+import HomePage from 'app/layout/pages/HomePage';
+import PlaygroundPage from 'features/playground/PlaygroundPage';
+import NotFoundPage from 'app/layout/pages/NotFoundPage';
 
 function App() {
   return (
@@ -16,9 +16,9 @@ function App() {
       <AlertManager />
       <DrawerManager />
       <ModalManager />
-      <Header />
       <Switch>
         <Route exact path='/' component={HomePage} />
+        <Route path='/playground' component={PlaygroundPage} />
         <Route render={NotFoundPage} />
       </Switch>
     </div>

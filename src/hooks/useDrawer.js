@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   openDrawer as open,
   closeDrawer as close,
-} from 'features/cores/drawer/drawerSlice';
+} from 'app/cores/drawer/drawerSlice';
 
 const useDrawer = () => {
   const dispatch = useDispatch();

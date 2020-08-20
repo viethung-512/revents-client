@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   openModal as open,
   closeModal as close,
-} from 'features/cores/modal/modalSlice';
+} from 'app/cores/modal/modalSlice';
 
 const useModal = () => {
   const dispatch = useDispatch();
