@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 
@@ -10,10 +11,16 @@ import useAlert from 'hooks/useAlert';
 import useDrawer from 'hooks/useDrawer';
 import useModal from 'hooks/useModal';
 import LoadingContainer from 'app/layout/commons/async/LoadingContainer';
-import { useState } from 'react';
 import Spinner from 'app/layout/commons/async/Spinner';
 
+const useStyles = makeStyles(theme => ({
+  successButton: {
+    ...theme.custom.successButton.outlined,
+  },
+}));
+
 export default function PlaygroundPage() {
+  const classes = useStyles();
   const [loading, setLoading] = useState(false);
   const { alertSuccess } = useAlert();
   const { openDrawer } = useDrawer();
@@ -66,6 +73,14 @@ export default function PlaygroundPage() {
       <Divider style={{ marginTop: 24, marginBottom: 24 }} />
 
       <ActionPage />
+      <Divider style={{ marginTop: 24, marginBottom: 24 }} />
+      <Button
+        variant='outlined'
+        color='primary'
+        className={classes.successButton}
+      >
+        Success Button
+      </Button>
     </LayoutPage>
   );
 }

@@ -59,7 +59,7 @@ function ModalWrapper({
   return (
     <Dialog
       open={status}
-      maxWidth='sm'
+      maxWidth='xs'
       fullScreen={matchesXS}
       fullWidth
       className={classes.root}
