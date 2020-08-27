@@ -5,6 +5,7 @@
     "hookform",
     "inmemory",
     "mixins",
-    "reduxjs"
+    "reduxjs",
+    "stickynode"
   ]
 }

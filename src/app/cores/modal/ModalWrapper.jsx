@@ -25,6 +25,7 @@ ModalWrapper.propTypes = {
 
 ModalWrapper.defaultProps = {
   closeable: true,
+  alignTitle: 'left',
 };
 
 const useStyles = makeStyles(theme => ({
@@ -44,6 +45,7 @@ function ModalWrapper({
   children,
   title,
   closeable,
+  alignTitle,
   actions,
   modalType,
   ...rest
@@ -68,7 +70,11 @@ function ModalWrapper({
       onClose={closeModal}
     >
       <DialogTitle disableTypography className={classes.header}>
-        {title && <Typography variant='h6'>{title}</Typography>}
+        {title && (
+          <Typography variant='h6' align={alignTitle}>
+            {title}
+          </Typography>
+        )}
         {closeable && (
           <IconButton className={classes.closeButton} onClick={closeModal}>
             <CloseIcon />

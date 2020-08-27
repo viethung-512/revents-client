@@ -222,16 +222,18 @@ function Header(props) {
                             borderRight: `1px solid ${theme.palette.grey[500]}`,
                           }}
                         />
-                        <Tab
-                          label='Create Event'
-                          component={Link}
-                          to='/create-event'
-                          className={clsx(
-                            classes.headerItem,
-                            classes.button,
-                            classes.createEventButton
-                          )}
-                        />
+                        {authenticated && (
+                          <Tab
+                            label='Create Event'
+                            component={Link}
+                            to='/create-event'
+                            className={clsx(
+                              classes.headerItem,
+                              classes.button,
+                              classes.createEventButton
+                            )}
+                          />
+                        )}
                       </Tabs>
                     </Hidden>
                   </Grid>

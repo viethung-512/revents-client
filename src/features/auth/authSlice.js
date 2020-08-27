@@ -11,7 +11,9 @@ const authSlice = createSlice({
     setAuth: (state, { payload }) => {
       const { token, ...authUser } = payload;
       authUser.photoURL = authUser.photoURL ?? '/assets/user.png';
-      localStorage.setItem('token', token);
+      if (token) {
+        localStorage.setItem('token', token);
+      }
 
       state.authenticated = true;
       state.initialized = true;

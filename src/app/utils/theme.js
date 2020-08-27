@@ -8,6 +8,10 @@ const theme = createMuiTheme({
       main: '#00B5AD',
       contrastText: '#fff',
     },
+    secondary: {
+      main: '#1678C2',
+      contrastText: '#fff',
+    },
   },
   custom: {
     successButton: {
@@ -23,6 +27,22 @@ const theme = createMuiTheme({
         '&:hover': {
           backgroundColor: parentTheme.palette.action.hover,
           borderColor: parentTheme.palette.success.main,
+        },
+      },
+    },
+    errorButton: {
+      contained: {
+        backgroundColor: parentTheme.palette.error.main,
+        '&:hover': {
+          backgroundColor: parentTheme.palette.error.dark,
+        },
+      },
+      outlined: {
+        color: parentTheme.palette.error.main,
+        borderColor: parentTheme.palette.error.main,
+        '&:hover': {
+          backgroundColor: parentTheme.palette.action.hover,
+          borderColor: parentTheme.palette.error.main,
         },
       },
     },

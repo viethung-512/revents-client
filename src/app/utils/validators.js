@@ -22,3 +22,12 @@ export const registerValidator = yup.object().shape({
     .string()
     .oneOf([yup.ref('password'), null], 'Password must match'),
 });
+
+export const eventValidator = yup.object().shape({
+  title: yup.string().required('Must not be empty'),
+  category: yup.string().required('Must not be empty'),
+  description: yup.string().required('Must not be empty'),
+  city: yup.string().required('Must not be empty'),
+  venue: yup.string().required('Must not be empty'),
+  date: yup.string().required('Must not be empty'),
+});
