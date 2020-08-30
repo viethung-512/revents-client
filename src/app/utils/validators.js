@@ -31,3 +31,21 @@ export const eventValidator = yup.object().shape({
   venue: yup.string().required('Must not be empty'),
   date: yup.string().required('Must not be empty'),
 });
+
+export const resetPasswordValidator = yup.object().shape({
+  password: yup
+    .string()
+    .required('Must not be empty')
+    .min(6, 'Password must at least 6 characters'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Password does not matches.'),
+});
+
+export const profileFormValidator = yup.object().shape({
+  username: yup.string().required('Must not be empty'),
+});
+
+export const eventChatCommentValidator = yup.object().shape({
+  text: yup.string().required(),
+});

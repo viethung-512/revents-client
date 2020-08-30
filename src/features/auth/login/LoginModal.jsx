@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers';
 import ModalWrapper from 'app/cores/modal/ModalWrapper';
 import LoginForm from './LoginForm';
 import { loginValidator } from 'app/utils/validators';
-import { AUTH_LOGIN } from 'app/graphql/user';
+import { AUTH_LOGIN } from '../graphql/authQuery';
 import { setAuth } from '../authSlice';
 import useModal from 'hooks/useModal';
 

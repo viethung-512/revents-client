@@ -84,54 +84,6 @@ export const EVENT_UPDATE = gql`
   }
 `;
 
-export const EVENT_FETCH_LIST = gql`
-  query getEvents($page: Int, $limit: Int) {
-    getEvents(page: $page, limit: $limit) {
-      id
-      title
-      description
-      city
-      venue
-      date
-      isCancelled
-      host {
-        id
-        username
-        photoURL
-      }
-      attendees {
-        id
-        username
-        photoURL
-      }
-    }
-  }
-`;
-
-export const EVENT_FETCH_ITEM = gql`
-  query getEvent($id: String!) {
-    getEvent(id: $id) {
-      id
-      title
-      category
-      description
-      city
-      venue
-      date
-      host {
-        id
-        username
-        photoURL
-      }
-      attendees {
-        id
-        username
-        photoURL
-      }
-    }
-  }
-`;
-
 export const EVENT_ATTEND_TOGGLE = gql`
   mutation toggleAttendEvent($eventId: String!, $userId: String!) {
     toggleAttendEvent(eventId: $eventId, userId: $userId) {

@@ -91,10 +91,10 @@ function EventListItem({ event }) {
         avatar={
           <Avatar
             alt='avatar'
-            src={event.hostPhotoURL}
+            src={event?.host?.photoURL}
             className={classes.avatar}
             component={Link}
-            to={`/profile/${event?.hostUid}`}
+            to={`/profile/${event?.host.id}`}
           >
             <img
               alt='avatar placeholder'
@@ -115,7 +115,7 @@ function EventListItem({ event }) {
               variant='caption'
               color='primary'
               component={Link}
-              to={`/profile/${event?.hostUid}`}
+              to={`/profile/${event?.host.id}`}
               style={{ textDecoration: 'none' }}
             >
               {event.host.username}

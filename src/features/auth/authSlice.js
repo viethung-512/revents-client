@@ -18,6 +18,10 @@ const authSlice = createSlice({
       state.authenticated = true;
       state.initialized = true;
       state.user = authUser;
+      state.user.providerId = 'password';
+    },
+    updateProfileImage: (state, { payload }) => {
+      state.user.photoURL = payload;
     },
     setUnAuth: state => {
       localStorage.removeItem('token');
@@ -29,5 +33,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setAuth, setUnAuth } = authSlice.actions;
+export const { setAuth, setUnAuth, updateProfileImage } = authSlice.actions;
 export default authSlice.reducer;

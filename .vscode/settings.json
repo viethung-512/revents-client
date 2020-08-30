@@ -4,8 +4,11 @@
     "clsx",
     "hookform",
     "inmemory",
+    "loadcss",
+    "mimetype",
     "mixins",
     "reduxjs",
+    "scrollable",
     "stickynode"
   ]
 }

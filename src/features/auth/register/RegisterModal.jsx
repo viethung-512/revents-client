@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client';
 import ModalWrapper from 'app/cores/modal/ModalWrapper';
 import RegisterForm from './RegisterForm';
 import { registerValidator } from 'app/utils/validators';
-import { AUTH_REGISTER } from 'app/graphql/user';
+import { AUTH_REGISTER } from '../graphql/authMutation';
 import { setAuth } from '../authSlice';
 import useModal from 'hooks/useModal';
 

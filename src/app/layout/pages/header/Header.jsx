@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ElevationScroll from '../../commons/ElevationScroll';
@@ -8,6 +8,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
 import Hidden from '@material-ui/core/Hidden';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,13 +24,18 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 import AddIcon from '@material-ui/icons/Add';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import MenuIcon from '@material-ui/icons/Menu';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 import useModal from 'hooks/useModal';
 import DropDown from 'app/layout/commons/DropDown';
 import { setUnAuth } from 'features/auth/authSlice';
+// import { useMediaQuery } from '@material-ui/core';
+import DefaultAvatar from 'app/layout/commons/DefaultAvatar';
+import useDrawer from 'hooks/useDrawer';
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -86,6 +92,9 @@ function Header(props) {
   const { authenticated, user } = useSelector(state => state.auth);
 
   const { openModal } = useModal();
+  const { openDrawer } = useDrawer();
+
+  // const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleChangeTab = (e, newTab) => setTabValue(newTab);
 
@@ -95,15 +104,15 @@ function Header(props) {
       label: 'Create Event',
       icon: <AddIcon />,
       path: '/create-event',
-      callback: () => console.log('create event'),
+      callback: () => {},
       borderBottom: false,
     },
     {
       id: 'my-profile',
       label: 'My Profile',
       icon: <AccountBoxIcon />,
-      path: '/profile/me',
-      callback: () => console.log('my profile'),
+      path: `/profile/${user?.id}`,
+      callback: () => {},
       borderBottom: false,
     },
     {
@@ -111,7 +120,7 @@ function Header(props) {
       label: 'My Account',
       icon: <SettingsApplicationsIcon />,
       path: '/my-account',
-      callback: () => console.log('my account'),
+      callback: () => {},
       borderBottom: true,
     },
     {
@@ -124,27 +133,54 @@ function Header(props) {
     },
   ];
 
+  const unAuthMenuItems = [
+    {
+      id: 'login',
+      label: 'Login',
+      callback: () => openModal('LoginModal'),
+      borderBottom: true,
+    },
+    {
+      id: 'register',
+      label: 'Register',
+      callback: () => openModal('RegisterModal'),
+      borderBottom: false,
+    },
+  ];
+
   const unAuthMenu = (
     <Grid container alignItems='center'>
-      <Grid item>
-        <Button
-          variant='outlined'
-          className={clsx(classes.headerItem, classes.button)}
-          onClick={() => openModal('LoginModal')}
-        >
-          Login
-        </Button>
-      </Grid>
-      <Grid item>
-        <Button
-          variant='outlined'
-          className={clsx(classes.headerItem, classes.button)}
-          style={{ marginRight: 0 }}
-          onClick={() => openModal('RegisterModal')}
-        >
-          Register
-        </Button>
-      </Grid>
+      <Hidden mdUp>
+        <DropDown
+          content={
+            <IconButton>
+              <AccountCircleIcon fontSize='large' style={{ color: '#fff' }} />
+            </IconButton>
+          }
+          menuItems={unAuthMenuItems}
+        />
+      </Hidden>
+      <Hidden smDown>
+        <Grid item>
+          <Button
+            variant='outlined'
+            className={clsx(classes.headerItem, classes.button)}
+            onClick={() => openModal('LoginModal')}
+          >
+            Login
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            variant='outlined'
+            className={clsx(classes.headerItem, classes.button)}
+            style={{ marginRight: 0 }}
+            onClick={() => openModal('RegisterModal')}
+          >
+            Register
+          </Button>
+        </Grid>
+      </Hidden>
     </Grid>
   );
 
@@ -153,22 +189,46 @@ function Header(props) {
       <Grid item>
         <DropDown
           content={
-            <List style={{ padding: 0 }}>
-              <ListItem button>
-                <ListItemAvatar>
-                  <Avatar alt='avatar' src={user?.photoURL} />
-                </ListItemAvatar>
-                <ListItemText
-                  className={classes.headerItem}
-                  style={{ margin: 0 }}
-                >
-                  {user?.username}
-                </ListItemText>
-                <ListItemSecondaryAction>
-                  <ArrowDropDownIcon style={{ color: '#fff' }} />
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
+            <Fragment>
+              <Hidden mdUp>
+                <List style={{ padding: 0 }}>
+                  <ListItem button>
+                    <ListItemAvatar>
+                      <Avatar alt='avatar' src={user?.photoURL}>
+                        <DefaultAvatar />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      className={classes.headerItem}
+                      style={{ margin: 0 }}
+                    >
+                      {user?.username}
+                    </ListItemText>
+                  </ListItem>
+                </List>
+              </Hidden>
+
+              <Hidden smDown>
+                <List style={{ padding: 0 }}>
+                  <ListItem button>
+                    <ListItemAvatar>
+                      <Avatar alt='avatar' src={user?.photoURL}>
+                        <DefaultAvatar />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      className={classes.headerItem}
+                      style={{ margin: 0 }}
+                    >
+                      {user?.username}
+                    </ListItemText>
+                    <ListItemSecondaryAction>
+                      <ArrowDropDownIcon style={{ color: '#fff' }} />
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                </List>
+              </Hidden>
+            </Fragment>
           }
           menuItems={menuItems}
         />
@@ -184,15 +244,25 @@ function Header(props) {
             <Grid container justify='space-between' alignItems='center'>
               <Grid item>
                 <Grid container alignItems='center'>
+                  <Hidden mdUp>
+                    <Grid item>
+                      <IconButton
+                        onClick={() => openDrawer('MenuMobileDrawer')}
+                      >
+                        <MenuIcon fontSize='large' style={{ color: '#fff' }} />
+                      </IconButton>
+                    </Grid>
+                  </Hidden>
                   <Grid item className={classes.logoWrapper}>
                     <Grid container alignItems='center' component={Link} to='/'>
                       {/* <Grid item> */}
-                      <img
-                        alt='logo'
-                        src='/assets/logo.png'
-                        className={classes.logo}
-                      />
-                      {/* </Grid> */}
+                      <Hidden xsDown>
+                        <img
+                          alt='logo'
+                          src='/assets/logo.png'
+                          className={classes.logo}
+                        />
+                      </Hidden>
                       <Grid item>
                         <Typography
                           variant='body1'

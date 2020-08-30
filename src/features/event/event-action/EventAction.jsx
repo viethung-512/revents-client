@@ -10,9 +10,9 @@ import { categoryData } from 'app/utils/constants';
 import {
   EVENT_CREATE,
   EVENT_UPDATE,
-  EVENT_FETCH_ITEM,
   EVENT_CANCEL_TOGGLE,
-} from 'app/graphql/event';
+} from '../graphql/eventMutation';
+import { EVENT_FETCH_ITEM } from '../graphql/eventQuery';
 import LoadingContainer from 'app/layout/commons/async/LoadingContainer';
 import useAlert from 'hooks/useAlert';
 import { useEffect } from 'react';

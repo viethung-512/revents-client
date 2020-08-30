@@ -114,7 +114,7 @@ function Header({
       color='primary'
       style={{ color: '#fff' }}
       className={classes.button}
-      onClick={() => openModal('UnAuthModal')}
+      onClick={() => openModal('UnAuthModal', { isPage: false })}
     >
       Join This Event
     </Button>

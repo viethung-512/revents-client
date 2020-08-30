@@ -3,13 +3,14 @@ import {
   ApolloClient,
   ApolloProvider as Provider,
   InMemoryCache,
-  createHttpLink,
+  // createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { createUploadLink } from 'apollo-upload-client';
 
 import App from 'app/layout/App';
 
-const httpLink = createHttpLink({
+const httpLink = createUploadLink({
   uri: 'http://localhost:4040',
 });
 

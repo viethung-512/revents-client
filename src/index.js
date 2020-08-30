@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { ConnectedRouter } from 'connected-react-router';
 
 import ApolloProvider from './ApolloProvider';
-import store from './app/redux/store';
+import store, { history } from './app/redux/store';
 import theme from './app/utils/theme';
 import * as serviceWorker from './serviceWorker';
 
@@ -15,11 +15,11 @@ const rootEl = document.getElementById('root');
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <BrowserRouter>
+      <ConnectedRouter history={history}>
         <ThemeProvider theme={theme}>
           <ApolloProvider />
         </ThemeProvider>
-      </BrowserRouter>
+      </ConnectedRouter>
     </Provider>,
     rootEl
   );

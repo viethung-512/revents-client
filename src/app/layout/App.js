@@ -9,6 +9,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import AlertManager from 'app/cores/alert/AlertManager';
 import DrawerManager from 'app/cores/drawer/DrawerManager';
 import ModalManager from 'app/cores/modal/ModalManager';
+import PrivateRoute from './commons/PrivateRoute';
 
 import HomePage from 'app/layout/pages/HomePage';
 import PlaygroundPage from 'features/playground/PlaygroundPage';
@@ -18,6 +19,8 @@ import EventDashboard from 'features/event/event-dashboard/EventDashboard';
 import { setAuth, setUnAuth } from 'features/auth/authSlice';
 import LoadingContainer from './commons/async/LoadingContainer';
 import EventDetailed from 'features/event/event-detailed/EventDetailed';
+import ProfilePage from 'features/profile/profile-page/ProfilePage';
+import AccountPage from 'features/auth/account/AccountPage';
 
 const INITIALIZE_USER = gql`
   query getMe {
@@ -45,26 +48,26 @@ function App() {
   });
 
   return (
-    <div className='App'>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <LoadingContainer loading={loading} size={40} thickness={4.5} />
-        <AlertManager />
-        <DrawerManager />
-        <ModalManager />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route exact path='/events' component={EventDashboard} />
-          <Route exact path='/events/:id' component={EventDetailed} />
-          <Route
-            exact
-            path={['/event/manage/:id', '/create-event']}
-            component={EventAction}
-          />
-          <Route path='/playground' component={PlaygroundPage} />
-          <Route render={NotFoundPage} />
-        </Switch>
-      </MuiPickersUtilsProvider>
-    </div>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <LoadingContainer loading={loading} size={40} thickness={4.5} />
+      <AlertManager />
+      <DrawerManager />
+      <ModalManager />
+      <Switch>
+        <Route exact path='/' component={HomePage} />
+        <Route exact path='/events' component={EventDashboard} />
+        <Route exact path='/events/:id' component={EventDetailed} />
+        <Route
+          exact
+          path={['/event/manage/:id', '/create-event']}
+          component={EventAction}
+        />
+        <PrivateRoute exact path='/profile/:id' component={ProfilePage} />
+        <Route exact path='/my-account' component={AccountPage} />
+        <Route path='/playground' component={PlaygroundPage} />
+        <Route render={() => <NotFoundPage />} />
+      </Switch>
+    </MuiPickersUtilsProvider>
   );
 }
 

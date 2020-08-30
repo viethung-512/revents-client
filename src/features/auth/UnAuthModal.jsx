@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
@@ -10,16 +9,8 @@ import Typography from '@material-ui/core/Typography';
 
 import useModal from 'hooks/useModal';
 import ModalWrapper from 'app/cores/modal/ModalWrapper';
-
-UnAuthModal.propTypes = {
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
-  wrappedRoute: PropTypes.bool.isRequired,
-};
-
-UnAuthModal.defaultProps = {
-  wrappedRoute: true,
-};
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   dialogContent: {
@@ -44,26 +35,27 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function UnAuthModal({ open, onClose, wrappedRoute }) {
+function UnAuthModal(props) {
   const classes = useStyles();
-  // const history = useHistory();
-  // const theme = useTheme();
-  // const { prevLocation } = useSelector(state => state.location);
+  const history = useHistory();
+  const isPage = useSelector(({ modal }) =>
+    modal.modalProps ? modal.modalProps.isPage : true
+  );
+  const { prevLocation } = useSelector(state => state.location);
+
   const { openModal, closeModal } = useModal();
 
-  // const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
+  const handleClose = () => {
+    if (isPage) {
+      if (history && prevLocation) {
+        history.push(prevLocation.pathname);
+      } else {
+        history.push('/events');
+      }
+    }
 
-  // const handleClose = () => {
-  //   if (wrappedRoute) {
-  //     if (history && prevLocation) {
-  //       history.push(prevLocation.pathname);
-  //     } else {
-  //       history.push('/events');
-  //     }
-  //   }
-
-  //   onClose();
-  // };
+    closeModal();
+  };
 
   return (
     <ModalWrapper
@@ -115,7 +107,7 @@ function UnAuthModal({ open, onClose, wrappedRoute }) {
           className={classes.row}
           style={{ marginBottom: 0 }}
         >
-          <Button variant='contained' onClick={closeModal}>
+          <Button variant='contained' onClick={handleClose}>
             Cancel
           </Button>
         </Grid>

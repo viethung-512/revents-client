@@ -10,11 +10,10 @@ import EventDetailedSidebar from './Sidebar';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-// import useFirestoreDoc from 'hooks/useFirestoreDoc';
-// import { listenToEventFromFirestore } from 'app/firestore/firestoreService';
 import LoadingContainer from 'app/layout/commons/async/LoadingContainer';
 import EventDetailedSkeleton from './EventDetailedSkeleton';
-import { EVENT_FETCH_ITEM, EVENT_ATTEND_TOGGLE } from 'app/graphql/event';
+import { EVENT_FETCH_ITEM } from '../graphql/eventQuery';
+import { EVENT_ATTEND_TOGGLE } from '../graphql/eventMutation';
 import useAlert from 'hooks/useAlert';
 
 const useStyles = makeStyles(theme => ({
