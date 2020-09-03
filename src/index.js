@@ -4,6 +4,7 @@ import './index.css';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { ConnectedRouter } from 'connected-react-router';
+import 'react-calendar/dist/Calendar.css';
 
 import ApolloProvider from './ApolloProvider';
 import store, { history } from './app/redux/store';

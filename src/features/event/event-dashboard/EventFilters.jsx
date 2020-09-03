@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 
+import { eventFilters } from 'app/utils/constants';
+
 EventFilters.propTypes = {
   predicate: PropTypes.any,
   setPredicate: PropTypes.func,
@@ -36,18 +38,37 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const { EVENT_ALL, EVENT_HOST, EVENT_GOING, EVENT_DATE } = eventFilters;
+
 function EventFilters({
   predicate,
   setPredicate,
   reset,
   loading,
   authenticated,
+  refetch,
 }) {
   const classes = useStyles();
 
   const handleFilter = (type, value) => {
     setPredicate(type, value);
     reset();
+  };
+
+  const handleItemClick = (filterType, startDate) => {
+    const newPredicate = {};
+
+    newPredicate.filter = filterType;
+    newPredicate.date = startDate
+      ? { startDate }
+      : { startDate: predicate.date.startDate };
+
+    setPredicate(newPredicate);
+    // if (filterType === EVENT_DATE) {
+    //   refetch({ filterType, startDate });
+    // } else {
+    //   refetch({ filterType });
+    // }
   };
 
   return (
@@ -73,24 +94,24 @@ function EventFilters({
               <ListItem
                 button
                 disabled={loading}
-                selected={predicate.get('filter') === 'all'}
-                onClick={() => handleFilter('filter', 'all')}
+                selected={predicate.filter === EVENT_ALL}
+                onClick={() => handleItemClick(EVENT_ALL)}
               >
                 <ListItemText>All Events</ListItemText>
               </ListItem>
               <ListItem
                 button
                 disabled={loading}
-                selected={predicate.get('filter') === 'isGoing'}
-                onClick={() => handleFilter('filter', 'isGoing')}
+                selected={predicate.filter === EVENT_GOING}
+                onClick={() => handleItemClick(EVENT_GOING)}
               >
                 <ListItemText>I'm going</ListItemText>
               </ListItem>
               <ListItem
                 button
                 disabled={loading}
-                selected={predicate.get('filter') === 'isHosting'}
-                onClick={() => handleFilter('filter', 'isHosting')}
+                selected={predicate.filter === EVENT_HOST}
+                onClick={() => handleItemClick(EVENT_HOST)}
               >
                 <ListItemText>I'm hosting</ListItemText>
               </ListItem>
@@ -117,8 +138,8 @@ function EventFilters({
             </ListItem>
             <ListItem disableGutters style={{ padding: 0 }}>
               <Calendar
-                onChange={date => handleFilter('start_date', date)}
-                value={predicate.get('start_date') || new Date()}
+                onChange={date => handleItemClick(EVENT_DATE, date)}
+                value={predicate.date.startDate}
                 tileDisabled={() => loading}
               />
             </ListItem>

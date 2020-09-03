@@ -19,7 +19,7 @@ function ProfilePage({ match, history }) {
   const { user, authenticated } = useSelector(state => state.auth);
   const theme = useTheme();
   const { alertError } = useAlert();
-  const { loading, data } = useQuery(PROFILE_GET_USER, {
+  const { loading, data, refetch } = useQuery(PROFILE_GET_USER, {
     variables: { id: userId },
     onError: err => {
       history.push('/not-found');
@@ -35,8 +35,15 @@ function ProfilePage({ match, history }) {
   });
 
   useEffect(() => {
+    /**
+     * userId: userId normal
+     * user.id: authenticated user id
+     */
+    if (user && userId === user.id) {
+      refetch({ id: user.id });
+    }
     return () => setTabValue(0);
-  }, [userId]);
+  }, [userId, refetch, user]);
 
   const profile = data ? data.getUser : {};
   const isAuthUser = user && userId === user.id;

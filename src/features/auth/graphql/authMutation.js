@@ -19,6 +19,7 @@ export const AUTH_REGISTER = gql`
       photoURL
       description
       createdAt
+      token
     }
   }
 `;

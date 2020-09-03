@@ -8,7 +8,6 @@ export const EVENT_FETCH_LIST = gql`
     $userId: String
     $filterType: FilterEventsType
     $startDate: String
-    $endDate: String
   ) {
     getEvents(
       page: $page
@@ -17,7 +16,6 @@ export const EVENT_FETCH_LIST = gql`
       userId: $userId
       filterType: $filterType
       startDate: $startDate
-      endDate: $endDate
     ) {
       id
       title
